@@ -1,0 +1,24 @@
+Options
+~~
+Welcome to FS3335, please select an option listed below:
+
+1. Upload a new file to FS3335
+2. Remove a file from FS3335
+3. Export FS3335 to a file
+4. Exit
+~~
+case1
+~~
+text1
+~~
+case2
+~~
+text2
+~~
+case3
+~~
+text3
+~~
+case4
+~~
+text4
