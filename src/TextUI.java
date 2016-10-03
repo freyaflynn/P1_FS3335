@@ -15,7 +15,7 @@ public class TextUI {
 		//main loop
 		while (active) {
 			System.out.println(sysDialogue.get("options") + "\n");
-			char choice = input.next().charAt(0);	//Get first character entered
+			char choice = input.nextLine().charAt(0);	//Get first character entered
 			boolean abort = false;
 			String fName = null;
 			boolean noError;
@@ -92,11 +92,12 @@ public class TextUI {
 				active = false;
 				break;
 			
+			//TODO: TEST CODE
 			case 'z':
-				fName = input.next();
-				input.hasNext();
+				fName = input.nextLine();
+				//input.hasNext();
 				data = input.nextLine();
-				System.out.print("fName: " + fName + "  data: " + data);
+				System.out.println("fName: " + fName + "  data: " + data);
 				FS3335.newFile(fName, data);
 				System.out.println(FS3335.toString());
 				break;
