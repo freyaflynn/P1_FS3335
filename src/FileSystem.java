@@ -136,12 +136,6 @@ public class FileSystem {
 				blockToFile[i] = "";
 		}
 		
-		//TODO: TEST CODE
-		System.out.println("height " + height);
-		System.out.println("width " + width);
-		System.out.println("blockToFile " + blockToFile[0]);
-		
-		
 		for (int i = 0; i < MAX_BLOCKS; i++) {
 			int fileLength = 0;
 			if (blockToFile[i] != null)
@@ -154,7 +148,11 @@ public class FileSystem {
 			temp += blockToFile[i];
 			temp += "|\n";
 			temp += border + "\n";
-			String data = drive[i];
+			String data;
+			if (blockInfo[i] != 0 && blockInfo[i] > -2)
+				data = drive[i];
+			else
+				data = "";
 			if (data == null)
 				data = "";
 			for (int k = 0; k < data.length(); k += width) {

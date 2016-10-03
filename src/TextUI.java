@@ -14,7 +14,6 @@ public class TextUI {
 		boolean active = true;
 		//main loop
 		while (active) {
-			System.out.println(sysDialogue.get("options") + "\n");
 			char choice = input.nextLine().charAt(0);	//Get first character entered
 			boolean abort = false;
 			String fName = null;
@@ -25,7 +24,7 @@ public class TextUI {
 			case '1':
 				System.out.println(sysDialogue.get("case1") + "\n");
 				
-				fName = input.next();
+				fName = input.nextLine();
 				File f = new File(fName);
 				if (fName.equalsIgnoreCase("cancel")) {
 					System.out.println(sysDialogue.get("case1cancel"));
@@ -52,7 +51,7 @@ public class TextUI {
 			case '2':
 				System.out.println(sysDialogue.get("case2") + "\n");
 				
-				fName = input.next();
+				fName = input.nextLine();
 				
 				if (fName.equalsIgnoreCase("cancel")) {
 					System.out.println(sysDialogue.get("case2cancel") + "\n");
@@ -92,16 +91,22 @@ public class TextUI {
 				active = false;
 				break;
 			
-			//TODO: TEST CODE
-			case 'z':
+			//NEW FILE FROM INPUT
+			case '5':
+				System.out.println(sysDialogue.get("case5"));
 				fName = input.nextLine();
-				//input.hasNext();
+				System.out.println(sysDialogue.get("case5dataprompt"));
 				data = input.nextLine();
-				System.out.println("fName: " + fName + "  data: " + data);
 				FS3335.newFile(fName, data);
-				System.out.println("File Added(?)");
+				System.out.println(sysDialogue.get("case5confirm"));
+				break;
+				
+			//PRINT SYSTEM TO SCREEN
+			case '6':
+				System.out.println(sysDialogue.get("case6"));
 				System.out.println(FS3335.toString());
 				break;
+				
 			default:
 				System.out.println(sysDialogue.get("invalidcase") + "\n");
 				break;
