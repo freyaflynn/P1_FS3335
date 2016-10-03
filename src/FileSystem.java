@@ -18,12 +18,12 @@ public class FileSystem {
 		freeBlocks = MAX_BLOCKS;
 	}
 	
-	public void newFile (String fName, String data) {
+	public boolean newFile (String fName, String data) {
 		//CHECK FOR SPACE
 		int reqBlocks = (int)Math.ceil((double)data.length()/BLOCK_SIZE);
 		if (reqBlocks > freeBlocks) {
 			System.out.println("Error: Not enough free space on drive.");
-			return;
+			return false;
 		}
 		
 		int [] blockIndices = new int [reqBlocks];
@@ -45,13 +45,22 @@ public class FileSystem {
 		}
 		
 		blockInfo[foundIndices-1] = -1;	//End of File
+		return true;
 	}
 	
-	public void remFile (String fName) {
+	public boolean remFile (String fName) {
+		if (!hasFile(fName)) {
+			return false;
+		}
+		
+		for (int i = 0; i < MAX_BLOCKS; i++) {
+			
+		}
 		//Find file in fileInfo
 		//Get 1st block from fileInfo
 		//Clear fileInfo
 		//Get next block from current block (blockInfo), clear current blockInfo, go to next block, repeat
+		return true;
 	}
 	
 	public String importData (String fName) {

@@ -23,6 +23,10 @@ case1confirm
 ~~
 confirmtext1
 ~~
+case1error
+~~
+errortext1
+~~
 case2
 ~~
 text2

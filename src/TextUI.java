@@ -18,6 +18,7 @@ public class TextUI {
 			char choice = input.next().charAt(0);	//Get first character entered
 			boolean abort = false;
 			String fName = null;
+			boolean noError;
 			switch(choice) {
 			
 			//IMPORT FILE
@@ -39,9 +40,11 @@ public class TextUI {
 					break;
 				
 				String data = FS3335.importData(fName);
-				FS3335.newFile(fName, data);
-				System.out.println(sysDialogue.get("case1confirm") + "\n");
-				
+				noError = FS3335.newFile(fName, data);
+				if (noError)
+					System.out.println(sysDialogue.get("case1confirm") + "\n");
+				else
+					System.out.println(sysDialogue.get("case1error") + "\n");
 				
 				break;
 			
@@ -63,8 +66,11 @@ public class TextUI {
 				if (abort)
 					break;
 				
-				FS3335.remFile(fName);
-				System.out.println(sysDialogue.get("case2confirm") + "\n");
+				noError = FS3335.remFile(fName);
+				if (noError)
+					System.out.println(sysDialogue.get("case2confirm") + "\n");
+				else
+					System.out.println(sysDialogue.get("case2error") + "\n");
 				break;
 			
 			//BACKUP SYSTEM
