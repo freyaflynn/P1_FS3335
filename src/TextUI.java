@@ -40,12 +40,6 @@ public class TextUI {
 					break;
 				
 				String data = FS3335.importData(fName);
-<<<<<<< HEAD
-				//TODO: TEST CODE
-				System.out.println("data: \"" + data + "\"");
-=======
-				
->>>>>>> master
 				noError = FS3335.newFile(fName, data);
 				if (noError)
 					System.out.println(sysDialogue.get("case1confirm") + "\n");

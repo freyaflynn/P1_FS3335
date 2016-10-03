@@ -142,6 +142,11 @@ public class FileSystem {
 				int currBlock = fileInfo[i].firstBlock;
 				while (blockInfo[currBlock] > 0) {
 					blockToFile[currBlock] = fileInfo[i].fileName;
+					if(width-10-blockToFile[currBlock].length() < 0) {
+						int overage = Math.abs(width-10-blockToFile[currBlock].length());
+						int cutOff = blockToFile[currBlock].length() - overage - 4;
+						blockToFile[currBlock] = "..." + blockToFile[currBlock].substring(cutOff);
+					}
 					currBlock = blockInfo[currBlock];
 				}
 				blockToFile[currBlock] = fileInfo[i].fileName;
@@ -170,9 +175,10 @@ public class FileSystem {
 				data = "";
 			if (data == null)
 				data = "";
+			data = data.replaceAll("\n", "\n|");
 			for (int k = 0; k < data.length(); k += width) {
 				if (data.length() > k+width)
-					temp += "|" + data.substring(k, k+width-1) + "\n";
+					temp += "|" + data.substring(k, k+width) + "\n";
 				else
 					temp += "|" + data.substring(k) + "\n";
 
