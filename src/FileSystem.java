@@ -37,6 +37,11 @@ public class FileSystem {
 			}
 		}
 		
+		//TODO: TEST CODE
+		System.out.print("[");
+		for (int i = 0; i < blockIndices.length; i++)
+			System.out.print(blockIndices[i] + ", ");
+		System.out.println("]");
 		addFileInfo(fName, blockIndices[0]);
 		
 		for (int i = 0; i < foundIndices-1; i++) {
