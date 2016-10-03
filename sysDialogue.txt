@@ -4,8 +4,10 @@ Welcome to FS3335, please select an option listed below:
 
 1. Upload a new file to FS3335
 2. Remove a file from FS3335
-3. Export FS3335 to a file
+3. Backup FS3335 to a file
 4. Exit
+5. Create a new file from input
+6. Print FS3335 to the screen
 ~~
 case1
 ~~
@@ -58,6 +60,22 @@ errortext3
 case4
 ~~
 text4
+~~
+case5
+~~
+case5text
+~~
+case5dataprompt
+~~
+case5dataprompttext
+~~
+case5confirm
+~~
+case5confirmtext
+~~
+case6
+~~
+case6confirmtext
 ~~
 invalidcase
 ~~
