@@ -7,4 +7,8 @@ public class FileInfo {
 		fileName = fname;
 		firstBlock = block1;
 	}
+	
+	public String toString () {
+		return "FILE NAME: " + fileName + ", FIRST BLOCK: " + firstBlock;
+	}
 }

@@ -37,14 +37,19 @@ public class FileSystem {
 			}
 		}
 		
-		addFileInfo(fName, blockIndices[0]);
 		
+		addFileInfo(fName, blockIndices[0]);
 		for (int i = 0; i < foundIndices-1; i++) {
-			drive[blockIndices[i]] = data.substring(i*BLOCK_SIZE, (i+1)*BLOCK_SIZE - 1);	//place 256 char substrings in drive
+			if (data.length() > (i+1)*BLOCK_SIZE-1)
+				drive[blockIndices[i]] = data.substring(i*BLOCK_SIZE, (i+1)*BLOCK_SIZE - 1);	//place 256 char substrings in drive
+			else
+				drive[blockIndices[i]] = data.substring(i*BLOCK_SIZE);
+			
 			blockInfo[blockIndices[i]] = blockIndices[i+1];	//set the values in blockInfo to the next block of the file
 		}
 		
-		blockInfo[foundIndices-1] = -1;	//End of File
+		drive[blockIndices[foundIndices-1]] = data.substring((foundIndices-1) * BLOCK_SIZE);
+		blockInfo[blockIndices[foundIndices-1]] = -1;	//End of File
 		return true;
 	}
 	
@@ -53,13 +58,22 @@ public class FileSystem {
 			return false;
 		}
 		
+		int currBlock = -1;
+		int nextBlock;
 		for (int i = 0; i < MAX_BLOCKS; i++) {
-			
+			if (fileInfo[i].fileName.equalsIgnoreCase(fName)) {
+				currBlock = fileInfo[i].firstBlock;
+				fileInfo[i] = null;
+				break;
+			}
 		}
-		//Find file in fileInfo
-		//Get 1st block from fileInfo
-		//Clear fileInfo
-		//Get next block from current block (blockInfo), clear current blockInfo, go to next block, repeat
+		
+		while (blockInfo[currBlock] > 0) {
+			nextBlock = blockInfo[currBlock];
+			blockInfo[currBlock] = 0;
+			currBlock = nextBlock;
+		}
+		blockInfo[currBlock] = 0;
 		return true;
 	}
 	
@@ -78,12 +92,82 @@ public class FileSystem {
 	
 	public boolean hasFile (String fName) {
 		//look through fileInfo for fName
-		return true;
+		boolean hasFile = false;
+		for (int i = 0; i < MAX_BLOCKS; i++) {
+			if (fileInfo[i] != null && fName.equalsIgnoreCase(fileInfo[i].fileName)) {
+				hasFile = true;
+				break;
+			}
+		}
+		return hasFile;
 	}
 	
 	public String toString () {
 		//256 char boxes with block num and file name at the top, block order
-		return "";
+		String temp = "";
+		String border = "|-";
+		String [] blockToFile = new String [MAX_BLOCKS];
+		int height;
+		int width;
+		if (BLOCK_SIZE/8 > 60) {
+			width = 60;
+			height = BLOCK_SIZE/60;
+		} else {
+			height = 8;
+			width = BLOCK_SIZE/8;
+		}
+		
+		for (int i = 0; i < width; i++)
+			border += "-";
+		
+		
+		//Generates array blockToFile
+		for (int i = 0; i < MAX_BLOCKS; i++) {
+			if (fileInfo[i] != null) {
+				int currBlock = fileInfo[i].firstBlock;
+				while (blockInfo[currBlock] > 0) {
+					blockToFile[currBlock] = fileInfo[i].fileName;
+					currBlock = blockInfo[currBlock];
+				}
+				blockToFile[currBlock] = fileInfo[i].fileName;
+			} else {
+			}
+			if (blockToFile[i] == null)
+				blockToFile[i] = "";
+		}
+		
+		//TODO: TEST CODE
+		System.out.println("height " + height);
+		System.out.println("width " + width);
+		System.out.println("blockToFile " + blockToFile[0]);
+		
+		
+		for (int i = 0; i < MAX_BLOCKS; i++) {
+			int fileLength = 0;
+			if (blockToFile[i] != null)
+					fileLength = blockToFile[i].length();
+			temp += border + "\n";
+			temp += "|Block:" + String.format("%1$04d", i);
+			for (int j = 0; j < width-10-fileLength; j++) {
+				temp+= " ";
+			}
+			temp += blockToFile[i];
+			temp += "|\n";
+			temp += border + "\n";
+			String data = drive[i];
+			if (data == null)
+				data = "";
+			for (int k = 0; k < data.length(); k += width) {
+				if (data.length() > k+width)
+					temp += "|" + data.substring(k, k+width-1) + "\n";
+				else
+					temp += "|" + data.substring(k) + "\n";
+
+				
+			}
+			temp += "\n";
+		}
+		return temp;
 	}
 	
 	//Adds a new FileInfo object to the fileInfo array
@@ -91,7 +175,7 @@ public class FileSystem {
 		FileInfo fi = new FileInfo(fName, firstBlock);
 		if (hasFile(fName))
 			for (int i = 0; i < MAX_BLOCKS; i++) {
-				if (fileInfo[i].fileName.equalsIgnoreCase(fName)) {
+				if (fileInfo[i] != null && fileInfo[i].fileName.equalsIgnoreCase(fName)) {
 					fileInfo[i] = fi;
 					break;
 				}

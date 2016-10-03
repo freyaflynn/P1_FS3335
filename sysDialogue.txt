@@ -1,4 +1,4 @@
-Options
+options
 ~~
 Welcome to FS3335, please select an option listed below:
 
