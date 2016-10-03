@@ -99,6 +99,7 @@ public class TextUI {
 				data = input.nextLine();
 				System.out.println("fName: " + fName + "  data: " + data);
 				FS3335.newFile(fName, data);
+				System.out.println("File Added(?)");
 				System.out.println(FS3335.toString());
 				break;
 			default:

@@ -37,19 +37,19 @@ public class FileSystem {
 			}
 		}
 		
-		//TODO: TEST CODE
-		System.out.print("[");
-		for (int i = 0; i < blockIndices.length; i++)
-			System.out.print(blockIndices[i] + ", ");
-		System.out.println("]");
-		addFileInfo(fName, blockIndices[0]);
 		
+		addFileInfo(fName, blockIndices[0]);
 		for (int i = 0; i < foundIndices-1; i++) {
-			drive[blockIndices[i]] = data.substring(i*BLOCK_SIZE, (i+1)*BLOCK_SIZE - 1);	//place 256 char substrings in drive
+			if (data.length() > (i+1)*BLOCK_SIZE-1)
+				drive[blockIndices[i]] = data.substring(i*BLOCK_SIZE, (i+1)*BLOCK_SIZE - 1);	//place 256 char substrings in drive
+			else
+				drive[blockIndices[i]] = data.substring(i*BLOCK_SIZE);
+			
 			blockInfo[blockIndices[i]] = blockIndices[i+1];	//set the values in blockInfo to the next block of the file
 		}
 		
-		blockInfo[foundIndices-1] = -1;	//End of File
+		drive[blockIndices[foundIndices-1]] = data.substring((foundIndices-1) * BLOCK_SIZE);
+		blockInfo[blockIndices[foundIndices-1]] = -1;	//End of File
 		return true;
 	}
 	
@@ -130,9 +130,16 @@ public class FileSystem {
 					currBlock = blockInfo[currBlock];
 				}
 				blockToFile[currBlock] = fileInfo[i].fileName;
+			} else {
 			}
+			if (blockToFile[i] == null)
+				blockToFile[i] = "";
 		}
 		
+		//TODO: TEST CODE
+		System.out.println("height " + height);
+		System.out.println("width " + width);
+		System.out.println("blockToFile " + blockToFile[0]);
 		
 		
 		for (int i = 0; i < MAX_BLOCKS; i++) {
@@ -141,7 +148,7 @@ public class FileSystem {
 					fileLength = blockToFile[i].length();
 			temp += border + "\n";
 			temp += "|Block:" + String.format("%1$04d", i);
-			for (i = 0; i < width-10-fileLength; i++) {
+			for (int j = 0; j < width-10-fileLength; j++) {
 				temp+= " ";
 			}
 			temp += blockToFile[i];
@@ -150,8 +157,13 @@ public class FileSystem {
 			String data = drive[i];
 			if (data == null)
 				data = "";
-			for (i = 0; i < data.length(); i += width) {
-				temp += "|" + data.substring(i, i+width-1) + "\n";
+			for (int k = 0; k < data.length(); k += width) {
+				if (data.length() > k+width)
+					temp += "|" + data.substring(k, k+width-1) + "\n";
+				else
+					temp += "|" + data.substring(k) + "\n";
+
+				
 			}
 			temp += "\n";
 		}
