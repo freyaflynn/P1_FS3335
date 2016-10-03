@@ -91,7 +91,15 @@ public class TextUI {
 				System.out.println(sysDialogue.get("case4") + "\n");
 				active = false;
 				break;
-				
+			
+			case 'z':
+				fName = input.next();
+				input.hasNext();
+				data = input.nextLine();
+				System.out.print("fName: " + fName + "  data: " + data);
+				FS3335.newFile(fName, data);
+				System.out.println(FS3335.toString());
+				break;
 			default:
 				System.out.println(sysDialogue.get("invalidcase") + "\n");
 				break;
@@ -106,6 +114,7 @@ public class TextUI {
 		Map<String,String> temp = new HashMap<String,String>();
 		try {
 			Scanner dialogue = new Scanner(new File("sysDialogue.txt"));
+			dialogue.useDelimiter("~~");
 			while (dialogue.hasNext()) {
 				temp.put(dialogue.next().trim(), dialogue.next().trim());
 				}
