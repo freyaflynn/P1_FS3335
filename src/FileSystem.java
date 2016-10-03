@@ -1,3 +1,4 @@
+import java.io.*;
 
 public class FileSystem {
 	
@@ -21,8 +22,7 @@ public class FileSystem {
 	public boolean newFile (String fName, String data) {
 		//CHECK FOR SPACE
 		int reqBlocks = (int)Math.ceil((double)data.length()/BLOCK_SIZE);
-		if (reqBlocks > freeBlocks) {
-			System.out.println("Error: Not enough free space on drive.");
+		if (reqBlocks > freeBlocks || data.equals("ERROR CODE : !@$$!!%%#@@#$^@#$helloworld")) {
 			return false;
 		}
 		
@@ -78,13 +78,28 @@ public class FileSystem {
 	}
 	
 	public String importData (String fName) {
-		//open file
-		//read to string
-		//return
-		return "";
+		String data = "";
+		String line = "";
+		try {
+			FileReader fileReader = new FileReader(fName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			
+			while ((line = bufferedReader.readLine()) != null) {
+				data += line + "\n";
+			}
+			
+			bufferedReader.close();
+			
+		} catch (FileNotFoundException e) {
+			data = "ERROR CODE : !@$$!!%%#@@#$^@#$helloworld";
+		} catch (IOException e) {
+			data = "ERROR CODE : !@$$!!%%#@@#$^@#$helloworld";
+		}
+		return data;
 	}
 	
 	public boolean backUpSystem () {
+		//TODO
 		//save toString to file
 		//if successful, return true
 		return true;
