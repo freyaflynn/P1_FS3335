@@ -38,7 +38,7 @@ public class TextUI {
 				if (abort)
 					break;
 				
-				String data = FS3335.ImportData(fName);
+				String data = FS3335.importData(fName);
 				FS3335.newFile(fName, data);
 				System.out.println(sysDialogue.get("case1confirm") + "\n");
 				
