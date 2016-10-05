@@ -13,8 +13,10 @@ public class TextUI {
 		Scanner input = new Scanner(System.in);
 		boolean active = true;
 		//main loop
+		
+		System.out.println(sysDialogue.get("welcome") + "\n");
 		while (active) {
-			System.out.println(sysDialogue.get("options"));
+			System.out.println(sysDialogue.get("options") + "\n");
 			char choice = input.nextLine().charAt(0);	//Get first character entered
 			boolean abort = false;
 			String fName = null;
@@ -28,7 +30,7 @@ public class TextUI {
 				fName = input.nextLine();
 				File f = new File(fName);
 				if (fName.equalsIgnoreCase("cancel")) {
-					System.out.println(sysDialogue.get("case1cancel"));
+					System.out.println(sysDialogue.get("case1cancel") + "\n");
 					abort = true;
 				}
 				if (!f.isFile()) {
@@ -94,20 +96,20 @@ public class TextUI {
 			
 			//NEW FILE FROM INPUT
 			case '5':
-				System.out.println(sysDialogue.get("case5"));
+				System.out.println(sysDialogue.get("case5") + "\n");
 				fName = input.nextLine();
-				System.out.println(sysDialogue.get("case5dataprompt"));
+				System.out.println(sysDialogue.get("case5dataprompt") + "\n");
 				data = input.nextLine();
 				noError = FS3335.newFile(fName, data);
 				if (noError)
-					System.out.println(sysDialogue.get("case5confirm"));
+					System.out.println(sysDialogue.get("case5confirm") + "\n");
 				else
-					System.out.println(sysDialogue.get("case5error"));
+					System.out.println(sysDialogue.get("case5error") + "\n");
 				break;
 				
 			//PRINT SYSTEM TO SCREEN
 			case '6':
-				System.out.println(sysDialogue.get("case6"));
+				System.out.println(sysDialogue.get("case6") + "\n");
 				System.out.println(FS3335.toString());
 				break;
 				
@@ -132,7 +134,11 @@ public class TextUI {
 			dialogue.close();
 			}
 		catch (FileNotFoundException e) {
-			temp.put("options", "Unfortunately ");
+			temp.put("welcome", "Unfortunately sysDialogue.txt appears to have been moved\n"
+					+ "or be missing from your installation. Please put it back\n"
+					+ "in the project root folder or reinstall FS3335.\n"
+					+ "Use option 4 to exit the system.");
+			temp.put("case4", "Now exiting FS3335.\n\n---Process Terminated---");
 		}
 		return temp;
 	}

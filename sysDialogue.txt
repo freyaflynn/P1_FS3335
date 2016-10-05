@@ -1,6 +1,12 @@
+welcome
+~~
+Loading system...
+
+Welcome to FS3335!
+~~
 options
 ~~
-Welcome to FS3335, please select an option listed below:
+Please select an option listed below:
 
 1. Upload a new file to FS3335
 2. Remove a file from FS3335
