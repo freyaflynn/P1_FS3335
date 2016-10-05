@@ -98,8 +98,11 @@ public class TextUI {
 				fName = input.nextLine();
 				System.out.println(sysDialogue.get("case5dataprompt"));
 				data = input.nextLine();
-				FS3335.newFile(fName, data);
-				System.out.println(sysDialogue.get("case5confirm"));
+				noError = FS3335.newFile(fName, data);
+				if (noError)
+					System.out.println(sysDialogue.get("case5confirm"));
+				else
+					System.out.println(sysDialogue.get("case5error"));
 				break;
 				
 			//PRINT SYSTEM TO SCREEN

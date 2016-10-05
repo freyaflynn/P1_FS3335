@@ -73,6 +73,10 @@ case5confirm
 ~~
 case5confirmtext
 ~~
+case5error
+~~
+case5errortext
+~~
 case6
 ~~
 case6confirmtext
