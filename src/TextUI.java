@@ -14,6 +14,7 @@ public class TextUI {
 		boolean active = true;
 		//main loop
 		while (active) {
+			System.out.println(sysDialogue.get("options"));
 			char choice = input.nextLine().charAt(0);	//Get first character entered
 			boolean abort = false;
 			String fName = null;
@@ -39,7 +40,6 @@ public class TextUI {
 					break;
 				
 				String data = FS3335.importData(fName);
-				
 				noError = FS3335.newFile(fName, data);
 				if (noError)
 					System.out.println(sysDialogue.get("case1confirm") + "\n");

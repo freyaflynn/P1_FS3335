@@ -142,21 +142,33 @@ public class FileSystem {
 				int currBlock = fileInfo[i].firstBlock;
 				while (blockInfo[currBlock] > 0) {
 					blockToFile[currBlock] = fileInfo[i].fileName;
+					
+					//Truncate overly long filenames
+					if(width-10-blockToFile[currBlock].length() < 0) {
+						int cutOff = blockToFile[currBlock].length() - (width - 15);
+						blockToFile[currBlock] = "..." + blockToFile[currBlock].substring(cutOff);
+					}
 					currBlock = blockInfo[currBlock];
 				}
 				blockToFile[currBlock] = fileInfo[i].fileName;
+				if(width-10-blockToFile[currBlock].length() < 0) {
+					int cutOff = blockToFile[currBlock].length() - (width - 15);
+					blockToFile[currBlock] = "..." + blockToFile[currBlock].substring(cutOff);
+				}
 			} else {
 			}
 			if (blockToFile[i] == null)
 				blockToFile[i] = "";
 		}
 		
+		//Go through all blocks and add to temp string
 		for (int i = 0; i < MAX_BLOCKS; i++) {
 			int fileLength = 0;
 			if (blockToFile[i] != null)
 					fileLength = blockToFile[i].length();
 			temp += border + "\n";
 			temp += "|Block:" + String.format("%1$04d", i);
+			//Right align filename
 			for (int j = 0; j < width-10-fileLength; j++) {
 				temp+= " ";
 			}
@@ -170,13 +182,14 @@ public class FileSystem {
 				data = "";
 			if (data == null)
 				data = "";
+			data = data.replaceAll("\n", "\n|");
+			
+			//Add raw data
 			for (int k = 0; k < data.length(); k += width) {
 				if (data.length() > k+width)
-					temp += "|" + data.substring(k, k+width-1) + "\n";
+					temp += "|" + data.substring(k, k+width) + "\n";
 				else
 					temp += "|" + data.substring(k) + "\n";
-
-				
 			}
 			temp += "\n";
 		}
