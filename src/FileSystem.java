@@ -2,8 +2,8 @@ import java.io.*;
 
 public class FileSystem {
 	
-	public static final int MAX_BLOCKS = 256;
-	public static final int BLOCK_SIZE = 256;
+	public static int MAX_BLOCKS = 256;
+	public static int BLOCK_SIZE = 256;
 	
 	private FileInfo [] fileInfo;	//file name and 1st block. Null if deleted.
 	private int [] blockInfo;		//0 = available, -1 = EOF, -2 = bad block. 
@@ -22,6 +22,8 @@ public class FileSystem {
 	public boolean newFile (String fName, String data) {
 		//CHECK FOR SPACE
 		int reqBlocks = (int)Math.ceil((double)data.length()/BLOCK_SIZE);
+		//TODO: TESTCODE
+		System.out.println("reqBlocks: " + reqBlocks);
 		if (reqBlocks > freeBlocks || data.equals("ERROR CODE : !@$$!!%%#@@#$^@#$helloworld")) {
 			return false;
 		}
@@ -50,6 +52,7 @@ public class FileSystem {
 		
 		drive[blockIndices[foundIndices-1]] = data.substring((foundIndices-1) * BLOCK_SIZE);
 		blockInfo[blockIndices[foundIndices-1]] = -1;	//End of File
+		freeBlocks -= reqBlocks;
 		return true;
 	}
 	
@@ -99,10 +102,16 @@ public class FileSystem {
 	}
 	
 	public boolean backUpSystem () {
-		//TODO
-		//save toString to file
-		//if successful, return true
-		return true;
+		PrintWriter backUp;
+		try {
+			backUp = new PrintWriter("./FS3335.txt", "UTF-8");
+			backUp.print(toString());
+			backUp.close();
+			return true;
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			return false;
+		}
+		
 	}
 	
 	public boolean hasFile (String fName) {
@@ -122,15 +131,11 @@ public class FileSystem {
 		String temp = "";
 		String border = "|-";
 		String [] blockToFile = new String [MAX_BLOCKS];
-		int height;
 		int width;
-		if (BLOCK_SIZE/8 > 60) {
+		if (BLOCK_SIZE/8 > 60)
 			width = 60;
-			height = BLOCK_SIZE/60;
-		} else {
-			height = 8;
+		else
 			width = BLOCK_SIZE/8;
-		}
 		
 		for (int i = 0; i < width; i++)
 			border += "-";
@@ -160,7 +165,13 @@ public class FileSystem {
 			if (blockToFile[i] == null)
 				blockToFile[i] = "";
 		}
-		
+		temp += "------------------\n";
+		temp += "| FS3335 Overview \n";
+		temp += "|-----------------\n";
+		temp += "| This system has a capacity of " + MAX_BLOCKS + " blocks.\n";
+		temp += "| " + freeBlocks + " of those blocks are free.\n";
+		temp += "| The current block size is: " + BLOCK_SIZE + "B\n";
+		temp += "|--------------------------------\n\n";
 		//Go through all blocks and add to temp string
 		for (int i = 0; i < MAX_BLOCKS; i++) {
 			int fileLength = 0;
