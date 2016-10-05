@@ -22,8 +22,6 @@ public class FileSystem {
 	public boolean newFile (String fName, String data) {
 		//CHECK FOR SPACE
 		int reqBlocks = (int)Math.ceil((double)data.length()/BLOCK_SIZE);
-		//TODO: TESTCODE
-		System.out.println("reqBlocks: " + reqBlocks);
 		if (reqBlocks > freeBlocks || data.equals("ERROR CODE : !@$$!!%%#@@#$^@#$helloworld")) {
 			return false;
 		}

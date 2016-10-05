@@ -1,86 +1,111 @@
+welcome
+~~
+Loading system...
+
+Welcome to FS3335!
+~~
 options
 ~~
-Welcome to FS3335, please select an option listed below:
+Please select an option listed below:
 
 1. Upload a new file to FS3335
 2. Remove a file from FS3335
 3. Backup FS3335 to a file
 4. Exit
+
 5. Create a new file from input
 6. Print FS3335 to the screen
 ~~
 case1
 ~~
-text1
+You have chosen to import an external file.
+You may enter "cancel" to return to the main menu,
+alternatively enter in the full path and filename
+of the file you would like to upload.
 ~~
 case1cancel
 ~~
-canceltext1
+Returning to menu...
 ~~
 case1fnf
 ~~
-fnftext1
+The file you entered was not found.
+
+Returning to menu...
 ~~
 case1confirm
 ~~
-confirmtext1
+Your file was successfully found and imported.
+
+Returning to menu...
 ~~
 case1error
 ~~
-errortext1
+An error occurred!
 ~~
 case2
 ~~
-text2
+You have chosen to remove a file.
+You may enter "cancel" to return to the main menu,
+alternatively enter in the name of the file you
+would like to remove as it was entered.
 ~~
 case2cancel
 ~~
-canceltext2
+Returning to menu...
 ~~
 case2fnf
 ~~
-fnftext2
+The file you entered was not found.
+
+Returning to menu...
 ~~
 case2confirm
 ~~
-confirmtext2
+Your file was successfully found and removed.
 ~~
 case3
 ~~
-text3
+Please wait while we back up the system...
 ~~
 case3confirm
 ~~
-confirmtext3
+System successfully backed up.
+
+Returning to menu...
 ~~
 case3error
 ~~
-errortext3
+An error occurred!
 ~~
 case4
 ~~
-text4
+Thank you for using FS3335.
+
+---Process Terminated---
 ~~
 case5
 ~~
-case5text
+You have chosen to create a file from your own input.
+
+Please enter a name to use for the file:
 ~~
 case5dataprompt
 ~~
-case5dataprompttext
+Please enter the contents of your file:
 ~~
 case5confirm
 ~~
-case5confirmtext
+Your file has successfully been created.
 ~~
 case5error
 ~~
-case5errortext
+An error occurred!
 ~~
 case6
 ~~
-case6confirmtext
+Now rendering the contents of FS3335 to your screen:
 ~~
 invalidcase
 ~~
-invalidcasetext
+Please enter a valid option.
